@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'protected/index'
+
   get 'home/index'
 
   get 'home_controller/index'
