@@ -8,7 +8,7 @@ RSpec.describe ProtectedController, type: :controller do
 
     get :index
 
-    response.should redirect_to(new_user_session_path)
+    expect(response).to redirect_to(new_user_session_path)
   end
 
   it "allows authenticated access to protected#index" do
@@ -16,7 +16,7 @@ RSpec.describe ProtectedController, type: :controller do
 
     get :index
 
-    response.should be_success
+    expect(response).to be_success
   end
 
 end
