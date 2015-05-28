@@ -3,7 +3,7 @@ require 'support/controller_helpers'
 
 RSpec.describe ProtectedController, type: :controller do
 
-  it "blocks unauthenticated access to protected#index" do
+  it "redirect authenticated users to sign in" do
     sign_in nil
 
     get :index
@@ -11,7 +11,7 @@ RSpec.describe ProtectedController, type: :controller do
     expect(response).to redirect_to(new_user_session_path)
   end
 
-  it "allows authenticated access to protected#index" do
+  it "allows authenticated to see protected#index" do
     sign_in
 
     get :index
