@@ -12,7 +12,7 @@ RSpec.describe ProtectedController, type: :controller do
   end
 
   it "allows authenticated to see protected#index" do
-    sign_in
+    sign_in create(:user)
 
     get :index
 
