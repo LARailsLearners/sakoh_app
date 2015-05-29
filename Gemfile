@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 # Ruby version development: ruby 2.1.0p0 
 
 group :production do
-  gem 'ruby', '2.0.0'
   gem 'rails_12factor'
 end
 
@@ -65,3 +64,4 @@ group :development, :test do
 
 end
 
+ruby '2.1.0'
