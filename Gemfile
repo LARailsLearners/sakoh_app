@@ -1,6 +1,12 @@
 source 'https://rubygems.org'
 
-# Ruby version: ruby 2.1.0p0 
+
+# Ruby version development: ruby 2.1.0p0 
+
+group :production do
+  gem 'ruby', '2.0.0'
+  gem 'rails_12factor'
+end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -38,8 +44,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
-
-gem 'rails_12factor', group: :production
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
