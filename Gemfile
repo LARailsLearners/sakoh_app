@@ -62,6 +62,8 @@ group :development, :test do
 
   gem 'factory_girl'
 
+  gem 'capybara'
+
 end
 
 ruby '2.1.6'
