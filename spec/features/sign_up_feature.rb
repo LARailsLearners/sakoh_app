@@ -5,7 +5,7 @@ describe "the signup process", :type => :feature do
     user = build(:user)
   end
 
-  it "signs me in" do
+  it "signs me up" do
     visit '/users/sign_up'
     within("#new_user") do
       fill_in 'First name', with: user.first_name
