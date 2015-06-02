@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'protected/index'
+  get 'protected' => 'protected#index'
 
   get 'home/index'
 
