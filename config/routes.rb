@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products
   get 'protected' => 'protected#index'
 
   get 'home/index'
