@@ -23,4 +23,6 @@ Things you may want to cover:
 
 …
 
-Please feel free to use a different markup language if you do not plan to run rake doc:app.
+Products added with bootstrap styling.
+
+To see the latest version of the app, click [here](http://afternoon-caverns-2050.herokuapp.com/)
