@@ -16,7 +16,11 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
-        <td><%= "#{product.description.slice(0,120)} ..." %></td>
+        <% if product.description.length > 120 %>
+          <td><%= "#{product.description.slice(0,120)} ..." %></td>
+        <% else %>
+          <td><%= product.description %></td>
+        <% end %>
         <td><%= product.price %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
