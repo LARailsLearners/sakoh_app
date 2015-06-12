@@ -10,4 +10,11 @@ RSpec.describe User, type: :model do
 
   end
 
+  it "should have products" do
+  	@product = Product.new
+	@user = User.new
+	@user.products << @product
+	expect(@product).to belong_to @user
+  end
+
 end
