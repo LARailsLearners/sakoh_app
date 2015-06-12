@@ -11,10 +11,8 @@ RSpec.describe User, type: :model do
   end
 
   it "should have products" do
-  	@product = Product.new
-	  @user = User.new
-	  @user.products << @product
-	  expect(@product).to belongs_to @user
+	  relationship = User.reflect_on_association(:products)
+    expect(relationship).to eq(:has_many) 
   end
 
 end
