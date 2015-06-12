@@ -12,9 +12,9 @@ RSpec.describe User, type: :model do
 
   it "should have products" do
   	@product = Product.new
-	@user = User.new
-	@user.products << @product
-	expect(@product).to belong_to @user
+	  @user = User.new
+	  @user.products << @product
+	  expect(@product).to belongs_to @user
   end
 
 end
