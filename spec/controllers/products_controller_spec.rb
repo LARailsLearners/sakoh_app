@@ -154,20 +154,17 @@ RSpec.describe ProductsController, type: :controller do
       }
 
       it "updates the requested product" do
-        product = Product.create! valid_attributes
         put :update, {:id => product.to_param, :product => new_attributes}, valid_session
         product.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested product as @product" do
-        product = Product.create! valid_attributes
         put :update, {:id => product.to_param, :product => valid_attributes}, valid_session
         expect(assigns(:product)).to eq(product)
       end
 
       it "redirects to the product" do
-        product = Product.create! valid_attributes
         put :update, {:id => product.to_param, :product => valid_attributes}, valid_session
         expect(response).to redirect_to(product)
       end
@@ -175,13 +172,11 @@ RSpec.describe ProductsController, type: :controller do
 
     context "with invalid params" do
       it "assigns the product as @product" do
-        product = Product.create! valid_attributes
         put :update, {:id => product.to_param, :product => invalid_attributes}, valid_session
         expect(assigns(:product)).to eq(product)
       end
 
       it "re-renders the 'edit' template" do
-        product = Product.create! valid_attributes
         put :update, {:id => product.to_param, :product => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
