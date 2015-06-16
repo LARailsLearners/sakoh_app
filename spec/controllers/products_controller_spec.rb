@@ -32,7 +32,11 @@ RSpec.describe ProductsController, type: :controller do
     skip("Add a hash of attributes invalid for your model")
   }
 
-  let(:product){ create(:product) }
+  let(:product) { create(:product) }
+
+  let(:product_attrs) { attributes_for(:product) }
+
+  let(:user) { create(:user) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -48,9 +52,12 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     it "assigns the requested product as @products with authorization" do
-      sign_in create(:user)
+      sign_in user
       get :index, {}, valid_session
       expect(response).to be_success
+      product = Product.new(product_attrs)
+      product.user_id = user.id
+      product.save
       expect(assigns(:products)).to eq([product])
     end
   end
@@ -59,12 +66,18 @@ RSpec.describe ProductsController, type: :controller do
 
     it "tries to assign the requested product as @product without authorization" do
       sign_in nil
+      product = Product.new(product_attrs)
+      product.user_id = user.id
+      product.save
       get :show, {:id => product.to_param}, valid_session
       expect(response).to redirect_to(new_user_session_path)
     end
 
     it "assigns the requested product as @product with authorization" do
-      sign_in create(:user)
+      sign_in user
+      product = Product.new(product_attrs)
+      product.user_id = user.id
+      product.save
       get :show, {:id => product.to_param}, valid_session
       expect(assigns(:product)).to eq(product)
     end
@@ -79,7 +92,7 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     it "assigns a new product as @product with authorization" do
-      sign_in create(:user)
+      sign_in user
       get :new, {}, valid_session
       expect(assigns(:product)).to be_a_new(Product)
     end
