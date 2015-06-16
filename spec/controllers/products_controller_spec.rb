@@ -116,9 +116,9 @@ RSpec.describe ProductsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Product with authorization" do
-        sign_in create(:user)
+        sign_in user
         expect {
-          post :create, {:product => valid_attributes}, valid_session
+          post :create, {:product => product_attrs }, valid_session
         }.to change(Product, :count).by(1)
       end
 
