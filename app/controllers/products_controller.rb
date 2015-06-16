@@ -4,7 +4,7 @@ class ProductsController < ProtectedController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.where(user_id: current_user.id)
+    @products = Product.all
   end
 
   # GET /products/1
@@ -19,6 +19,13 @@ class ProductsController < ProtectedController
 
   # GET /products/1/edit
   def edit
+    if product_belongs_to_user?
+      @product.user_id = current_user.id
+    else
+      respond_to do |format|
+        format.html { redirect_to products_url, notice: 'You can only edit your own products' }
+      end
+    end
   end
 
   # POST /products
@@ -42,7 +49,7 @@ class ProductsController < ProtectedController
   # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
-      if @product.update(product_params)
+      if @product.update(product_params) and product_belongs_to_user?
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -55,21 +62,33 @@ class ProductsController < ProtectedController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
+    if product_belongs_to_user?
+      @product.destroy
+      respond_to do |format|
+        format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to products_url, notice: 'You can only destroy your own products.' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find_by(id: params[:id], user_id: current_user.id)
+      @product = Product.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :description, :price)
+    end
+
+    # Checks if the product belongs to user
+    def product_belongs_to_user?
+      @product.user_id == current_user.id
     end
 end
