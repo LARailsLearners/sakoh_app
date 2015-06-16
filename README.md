@@ -25,4 +25,4 @@ Things you may want to cover:
 
 Products added with bootstrap styling.
 
-To see the latest version of the app, click [here](http://afternoon-caverns-2050.herokuapp.com/)
+To see the latest version of the app, click [here](http://parrellelsapp.herokuapp.com/)
