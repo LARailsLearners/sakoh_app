@@ -32,7 +32,15 @@ RSpec.describe ProductsController, type: :controller do
     skip("Add a hash of attributes invalid for your model")
   }
 
-  let(:product){ create(:product) }
+  let(:user) { create(:user) }
+
+  let(:product) do
+    sign_in user
+    build(:product)
+    product.user_id = user.id
+    product.save
+  end 
+
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -48,7 +56,7 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     it "assigns the requested product as @products with authorization" do
-      sign_in create(:user)
+      sign_in user
       get :index, {}, valid_session
       expect(response).to be_success
       expect(assigns(:products)).to eq([product])

@@ -4,7 +4,7 @@ class ProductsController < ProtectedController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.where(user_id: current_user.id)
   end
 
   # GET /products/1
@@ -25,6 +25,7 @@ class ProductsController < ProtectedController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @product.user_id = current_user.id
 
     respond_to do |format|
       if @product.save
@@ -64,7 +65,7 @@ class ProductsController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.find_by(id: params[:id], user_id: current_user.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
