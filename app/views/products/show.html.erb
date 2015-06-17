@@ -1,25 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+<div class="row jumbotron">
 
-<p>
-  <strong>Posted By:</strong>
-  <%= @product.user.first_name  %> <%= @product.user.last_name  %>
-</p>
+	<h1 class='center'><%= @product.name %></h1>
+	<div class="col-md-6 left">
+		<img class='img-responsive' src="http://placehold.it/350x150" alt="Product Image">
+	</div>
+	<div class="col-md-6 right">
+		<p>
+			<strong>Created By</strong>
+			<%= @product.user.first_name %> <%= @product.user.last_name %>
+		</p>
+		<h3>$ <%= @product.price  %></h3>
+		<button class="btn btn-primary">add to cart</button>
+	</div>
+</div>
+<div class="container">
+	<p> <%= @product.description  %></p>
+	<% if @product.user_id == current_user.id %>
+		<%= link_to 'Edit', edit_product_path(@product) %> |
+	<% end %>
+	<%= link_to 'Back', products_path %>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-<% if @product.user_id == current_user.id %>
-	<%= link_to 'Edit', edit_product_path(@product) %> |
-<% end %>
-<%= link_to 'Back', products_path %>
