@@ -1,5 +1,6 @@
 require 'rails_helper'
+require 'support/controller_helpers'
 
-RSpec.describe UsersController, type: :controller do
-
+RSpec.describe Home::UsersController, type: :controller do
+ 
 end

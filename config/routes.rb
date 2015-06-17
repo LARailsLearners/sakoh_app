@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :home do
+  get 'users/index'
+  end
+
+  namespace :home do
+  get 'users/show'
+  end
+
   resources :products
   get 'protected' => 'protected#index'
 
@@ -13,6 +21,10 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   devise_for :users, :controllers => { registrations: 'users' }
+
+  namespace :home do
+      resources :users, only: [:index, :show]
+  end
 
 
   # Example of regular route:
