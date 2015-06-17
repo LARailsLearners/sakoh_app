@@ -4,7 +4,7 @@
 
 	<h1 class='center'><%= @product.name %></h1>
 	<div class="col-md-6 left">
-		<img class='img-responsive' src="http://placehold.it/350x150" alt="Product Image">
+		<%= image_tag(@product.image.url, class: 'img-responsive')  %>
 	</div>
 	<div class="col-md-6 right">
 		<p>

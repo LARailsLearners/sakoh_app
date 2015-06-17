@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field form-group">
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+  </div>
+  <div class="field form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name, class: "form-control" %>
   </div>
