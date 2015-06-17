@@ -84,11 +84,12 @@ class ProductsController < ProtectedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :description, :price)
+      params.require(:product).permit(:name, :description, :price, :image)
     end
 
     # Checks if the product belongs to user
     def product_belongs_to_user?
       @product.user_id == current_user.id
     end
+
 end
