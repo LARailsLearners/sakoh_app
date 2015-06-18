@@ -11,11 +11,11 @@ RSpec.describe User, type: :model do
   end
 
   it "should have products" do
-	user = create(:user)
-	product = build(:product)
-	product.user_id = user.id
-	product.save 
-	expect(user.products).to include(product)
+	  user = create(:user)
+	  product = build(:product)
+	  product.user_id = user.id
+	  product.save 
+	  expect(user.products).to include(product)
   end
 
 end
