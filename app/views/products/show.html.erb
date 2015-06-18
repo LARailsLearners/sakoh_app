@@ -17,7 +17,7 @@
 </div>
 <div class="container">
 	<p> <%= @product.description  %></p>
-	<% if @product.user == current_user %>
+	<% if user_signed_in? && @product.user == current_user %>
 		<%= link_to 'Edit', edit_product_path(@product) %> |
 		<%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' } %> |
 	<% end %>
