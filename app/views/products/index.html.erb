@@ -3,12 +3,12 @@
 
 <div class="row">
   <% @products.each do |product| %>
-    <div class="col-md-4 container">
+    <div class="col-md-4 container center">
       <%= link_to image_tag( product.image.url, class: 'img-responsive'), product_path(product)%>
 
       <h3><%= link_to product.name, product_path(product)  %></h3>
-      <strong>$ <%= product.price  %></strong>
-      <% if product.user_id == current_user.id %>
+      <strong>$ <%= product.price  %></strong> <br>
+      <% if product.user == current_user %>
         <%= link_to 'Edit', edit_product_path(product) %> |
         <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %> <br>
