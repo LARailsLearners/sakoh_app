@@ -3,8 +3,8 @@
 
 <div class="row">
   <% @products.each do |product| %>
-    <div class="col-md-4 container center">
-      <%= link_to image_tag( product.image.url, class: 'img-responsive'), product_path(product)%>
+    <div class="col-md-4 container center bottom-margin">
+      <%= link_to image_tag(product.image.url(:medium)), product_path(product)%>
 
       <h3><%= link_to product.name, product_path(product)  %></h3>
       <strong>$ <%= product.price  %></strong> <br>
