@@ -14,10 +14,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <% if user_signed_in? %>
-          <li <%if current_page?(products_path)%>class="active"<%end%> ><%= link_to "Products", products_path %></li>
+        <li <%if current_page?(products_path)%>class="active"<%end%> ><%= link_to "Products", products_path %></li>
         <li <%if current_page?(home_users_path)%>class="active"<%end%> ><%= link_to "Users", home_users_path %></li>
-        <% end %>
       </ul>
       <p class="navbar-text pull-right">
       <% if user_signed_in? %>
