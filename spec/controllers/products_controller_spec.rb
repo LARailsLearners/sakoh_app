@@ -34,13 +34,13 @@ RSpec.describe ProductsController, type: :controller do
 
   let(:user) { create(:user) }
 
+  let(:product_attrs) { attributes_for(:product) }
+
   let(:product) do
     product = Product.new(product_attrs)
     product.user = user
     product.save
   end
-
-  let(:product_attrs) { attributes_for(:product) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
