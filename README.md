@@ -1,28 +1,7 @@
 README
 ======
 
-This README would normally document whatever steps are necessary to get the application up and running.
-
-Things you may want to cover:
-
-+ Ruby version
-
-+ System dependencies
-
-+ Configuration
-
-+ Database creation
-
-+ Database initialization
-
-+ How to run the test suite
-
-+ Services (job queues, cache servers, search engines, etc.)
-
-+ Deployment instructions
-
-…
 
 Products added with bootstrap styling.
 
-To see the latest version of the app, click [here](http://parrellelsapp.herokuapp.com/)
+To see a demo of the app, click [here](http://sellspace.herokuapp.com/)
