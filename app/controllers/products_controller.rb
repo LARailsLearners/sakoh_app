@@ -89,7 +89,7 @@ class ProductsController < ProtectedController
 
     # Checks if the product belongs to user
     def product_belongs_to_user?
-      @product.user_id == current_user.id
+      @product.user == current_user
     end
 
 end

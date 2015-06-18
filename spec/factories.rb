@@ -10,7 +10,6 @@ FactoryGirl.define do
 
   factory :product do
   	name 'Nintendo'
-    image 'image.png'
   	description 'Best Video Game System ever'
   	price 400
   end
