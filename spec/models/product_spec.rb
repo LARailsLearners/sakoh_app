@@ -46,4 +46,10 @@ RSpec.describe Product, type: :model do
   	expect(product).to_not be_valid
   end
 
+  it "should a price" do
+  	product.price = ""
+  	product.save
+  	expect(product).to_not be_valid
+  end
+
 end
