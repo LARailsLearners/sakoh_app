@@ -37,9 +37,7 @@ RSpec.describe ProductsController, type: :controller do
   let(:product_attrs) { attributes_for(:product) }
 
   let(:product) do
-    product = Product.new(product_attrs)
-    product.user = user
-    product.save
+    user.products.create(attributes_for(:product))
   end
 
   # This should return the minimal set of values that should be in the session
@@ -53,9 +51,6 @@ RSpec.describe ProductsController, type: :controller do
       sign_in nil
       get :index, {}, valid_session
       expect(response).to be_success
-      product = Product.new(product_attrs)
-      product.user_id = user.id
-      product.save
       expect(assigns(:products)).to eq([product])
     end
 
@@ -64,9 +59,6 @@ RSpec.describe ProductsController, type: :controller do
   describe "GET #show" do
 
     it "tries to assign the requested product as @product" do
-      product = Product.new(product_attrs)
-      product.user_id = user.id
-      product.save
       get :show, {:id => product.to_param}, valid_session
       expect(assigns(:product)).to eq(product)
     end
@@ -175,14 +167,14 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested product" do
-      product = Product.create! valid_attributes
+      product = user.products.create! valid_attributes
       expect {
         delete :destroy, {:id => product.to_param}, valid_session
       }.to change(Product, :count).by(-1)
     end
 
     it "redirects to the products list" do
-      product = Product.create! valid_attributes
+      product = user.products.create! valid_attributes
       delete :destroy, {:id => product.to_param}, valid_session
       expect(response).to redirect_to(products_url)
     end

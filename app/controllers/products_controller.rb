@@ -20,9 +20,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-    if product_belongs_to_user?
-      @product.user_id = current_user.id
-    else
+    unless product_belongs_to_user?
       respond_to do |format|
         format.html { redirect_to products_url, notice: 'You can only edit your own products' }
       end
@@ -32,8 +30,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-    @product.user_id = current_user.id
+    @product = current_user.products.build(product_params)
 
     respond_to do |format|
       if @product.save
