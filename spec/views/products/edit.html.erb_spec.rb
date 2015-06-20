@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "products/edit", type: :view do
   before(:each) do
-    @product = assign(:product, Product.create!(
+    @user = create(:user)
+    @product = assign(:product, @user.products.create!(
       :name => "MyString",
-      :description => "MyText",
+      :description => "The description of the product",
       :price => 1.5
     ))
   end
