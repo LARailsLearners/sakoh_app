@@ -16,11 +16,11 @@ RSpec.describe ReviewsController, type: :routing do
     end
 
     it "routes to #update" do
-      expect(:put => "/products/1/reviews/1").to route_to("reviews#update", {product_id: "1", id: "1"})
+      expect(:put => "/products/1/reviews/1").to route_to("reviews#update", { product_id: "1", id: "1" })
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/products/1/reviews/1").to route_to("reviews#destroy", {product_id: "1", id: "1"})
+      expect(:delete => "/products/1/reviews/1").to route_to("reviews#destroy", { product_id: "1", id: "1" })
     end
 
   end
