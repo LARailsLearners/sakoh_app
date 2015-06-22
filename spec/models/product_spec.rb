@@ -41,7 +41,7 @@ RSpec.describe Product, type: :model do
   end
 
   it "should not have too long of a description" do
-  	product.description = "a" * 501
+  	product.description = "a" * 2001
   	product.save
   	expect(product).to_not be_valid
   end

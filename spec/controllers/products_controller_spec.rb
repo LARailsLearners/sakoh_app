@@ -21,14 +21,6 @@ require 'support/controller_helpers'
 
 RSpec.describe ProductsController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Product. As you add validations to Product, be sure to
-  # adjust the attributes here as well.
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
   let(:user) { create(:user) }
 
   let(:different_user) { User.create(first_name: "John", last_name: "Smith", email: "jsmith@gmail.com") }
@@ -37,17 +29,13 @@ RSpec.describe ProductsController, type: :controller do
 
   let(:product) { user.products.create(attributes_for(:product)) }
 
-  let(:valid_attributes) {
-    attributes_for(:product)
-  }
+  let(:valid_attributes) { attributes_for(:product) }
 
-  let(:invalid_attributes) do
-    create(:product)
-  end
+  let(:invalid_attributes) { create(:product) }
 
   describe "GET #index" do
 
-    it "tries to assign the requested product as @products" do
+    it "assigns the requested product as @products" do
       sign_in nil
       get :index, {}
       expect(response).to be_success
@@ -58,7 +46,7 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "GET #show" do
 
-    it "tries to assign the requested product as @product" do
+    it "assigns the requested product as @product" do
       get :show, {:id => product.to_param}
       expect(assigns(:product)).to eq(product)
     end
@@ -146,7 +134,7 @@ RSpec.describe ProductsController, type: :controller do
 
     context "when user is signed in" do
 
-      before(:each) {sign_in user}
+      before(:each) { sign_in user }
 
       it "updates the requested product" do
         product.name = "Playstation 5"

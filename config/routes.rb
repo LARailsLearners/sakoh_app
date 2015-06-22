@@ -1,31 +1,18 @@
 Rails.application.routes.draw do
-  namespace :home do
-  get 'users/index'
-  end
-
-  namespace :home do
-  get 'users/show'
-  end
-
-  resources :products
-  get 'protected' => 'protected#index'
 
   get 'home/index'
 
-  get 'home_controller/index'
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
   root to: "home#index"
 
   devise_for :users, :controllers => { registrations: 'users' }
 
   namespace :home do
-      resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show]
   end
 
+  resources :products do
+    resources :reviews
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
