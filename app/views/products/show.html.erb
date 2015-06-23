@@ -21,7 +21,7 @@
 	<% end %>
 	<%= link_to 'Back', products_path %>
 
-	<%= react_component('ReviewApp',{ initialReviews: @product.reviews }, {prerender: true}) %>
+	<%= react_component('ReviewApp',{ url: "/products/#{@product.id}/reviews.json" }, {prerender: true}) %>
 
 </div>
 
