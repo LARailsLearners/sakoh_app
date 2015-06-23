@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_policy, only: [:show, :edit, :update, :destroy]
   # GET /products
   # GET /products.json
   def index
@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-    unless product_belongs_to_user?
+    unless @policy.edit?
       respond_to do |format|
         format.html { redirect_to products_url, notice: 'You can only edit your own products' }
       end
@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
-      if @product.update(product_params) and product_belongs_to_user?
+      if @product.update(product_params) && @policy.update?
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    if product_belongs_to_user?
+    if @policy.destroy?
       @product.destroy
       respond_to do |format|
         format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
@@ -80,14 +80,12 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:id])
     end
 
+    def set_policy
+      @policy = ProductPolicy.new(current_user, @product)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :description, :price, :image)
     end
-
-    # Checks if the product belongs to user
-    def product_belongs_to_user?
-      @product.user == current_user
-    end
-
 end
