@@ -8,7 +8,7 @@ RSpec.describe ReviewsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/products/1/reviews/1").to route_to("reviews#show",{ product_id: "1", id: "1"})
+      expect(:get => "/products/1/reviews/1").to route_to("reviews#show", { product_id: "1", id: "1"})
     end
 
     it "routes to #create" do
