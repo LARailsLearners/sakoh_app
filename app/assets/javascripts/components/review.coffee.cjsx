@@ -1,4 +1,4 @@
-@Comment = React.createClass 
+@Review = React.createClass 
 	render: ->
 		<div className="comment">
 			<b> Author Name: </b> {@props.author} 

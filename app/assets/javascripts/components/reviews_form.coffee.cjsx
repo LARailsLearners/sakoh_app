@@ -1,4 +1,4 @@
-@CommentForm = React.createClass
+@ReviewForm = React.createClass
 	render: ->
 		<form>
 			<textarea className="form-control"></textarea>

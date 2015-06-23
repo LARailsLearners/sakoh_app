@@ -21,7 +21,7 @@
 	<% end %>
 	<%= link_to 'Back', products_path %>
 
-	<%= react_component('CommentApp', {prerender: true}) %>
+	<%= react_component('ReviewApp',{ initialReviews: @product.reviews }, {prerender: true}) %>
 
 </div>
 
