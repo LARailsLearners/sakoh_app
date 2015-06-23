@@ -81,7 +81,7 @@ class ProductsController < ApplicationController
     end
 
     def set_policy
-      @policy = ProductPolicy.new(current_user, @product)
+      @policy = ApplicationPolicy.new(current_user, @product)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
