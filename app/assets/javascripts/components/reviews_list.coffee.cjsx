@@ -5,7 +5,7 @@
 		reviews = @state.reviews.map (review) ->
 			{user} = review.user
 
-			<Review author={"#{user.first_user} #{user.last_user}"} body={review.body} />
+			<Review author={"#{user.first_name} #{user.last_name}"} body={review.body} />
 
 		<div className="reviews">
 			<hr/>
