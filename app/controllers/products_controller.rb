@@ -11,6 +11,16 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @reviews = @product.reviews
+
+    @authors = []
+
+    @reviews.each do |review|
+      @authors << review.user
+    end
+
+    @authors = @authors.uniq
+
   end
 
   # GET /products/new

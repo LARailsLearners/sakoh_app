@@ -1,8 +1,6 @@
 @ReviewApp = React.createClass
-	getInitialState: ->
-      reviews: @props.initialReviews
 	render: ->
 		<div>
-			<ReviewsList reviews={@state.reviews} />
+			<ReviewsList reviews={@props.reviews} authors={@props.authors} />
 			<ReviewForm />
 		</div>
