@@ -1,9 +1,8 @@
 class ReviewsController < ApplicationController
-  before_action :set_product
+  before_action :set_product, only: [:index]
   before_action :authenticate_user!, only: [:create, :update, :delete]
 
   def index
-  	@reviews = @product.reviews.all
   end
 
   def create
