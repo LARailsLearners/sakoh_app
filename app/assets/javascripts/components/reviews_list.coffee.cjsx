@@ -1,11 +1,12 @@
 @ReviewsList = React.createClass
 	getInitialState: ->
-      reviews: @props.reviews
+      	reviews: @props.reviews
 	render: ->
-		reviews = @state.reviews.map (review) ->
-			{user} = review.user
+		if @state.reviews?
+			reviews = @props.reviews.map (review) ->
+				author = "#{review.user.first_name} #{review.user.last_name}"
 
-			<Review author={"#{user.first_name} #{user.last_name}"} body={review.body} />
+				<Review author={author} body={review.body} />
 
 		<div className="reviews">
 			<hr/>

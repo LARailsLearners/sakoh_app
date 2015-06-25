@@ -21,11 +21,11 @@
 	<% end %>
 	<%= link_to 'Back', products_path %>
 
-<<<<<<< HEAD
-	<%= react_component('ReviewApp',{ url: "/products/#{@product.id}/reviews.json" }, {prerender: true}) %>
-=======
-	<%= render "reviews/index.html.erb", product_id: @product_id %>
->>>>>>> immutable
-
+	<div id="reviews"></div>
 </div>
 
+<script>
+	$(function(){
+		window.mountReviews("/products/<%= @product.id %>/reviews.json");
+	});
+</script>
