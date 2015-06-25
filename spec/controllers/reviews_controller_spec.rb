@@ -7,13 +7,10 @@ RSpec.describe ReviewsController, type: :controller do
 
   let(:product) { user.products.create(attributes_for(:product)) }
 
-  let(:review_attrs) { attributes_for(:review) }
+  let(:review_attrs) { Hash[attributes_for(:review), user_id: user.id] }
 
   let(:review) do
-  	review = product.reviews.build(attributes_for(:review))
-  	review.user_id = user.id
-  	review.save
-  	review
+  	review = product.reviews.build(review_attrs)
   end
 
   it "assigns the requested review as @reviews" do
@@ -43,6 +40,15 @@ RSpec.describe ReviewsController, type: :controller do
       post :create, {:review => review_attrs}
       expect(assigns(:review)).to be_a(Review)
       expect(assigns(:review)).to be_persisted
+    end
+
+  end
+
+  describe "GET #show" do
+
+    it "assigns the requested review as @review" do
+      get :show, {:id => review.to_param, :product_id => product.id }
+      expect(assigns(:review)).to eq(review)
     end
 
   end

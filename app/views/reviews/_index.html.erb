@@ -1,0 +1,7 @@
+<hr>
+
+<% @product.reviews.each do |review| %>
+	<%= react_component "Review", {review: review, user: review.user }, prerender: true  %>
+<% end %>
+
+<%= react_component "ReviewForm", prerender: true %>
