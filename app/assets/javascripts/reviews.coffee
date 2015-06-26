@@ -2,23 +2,29 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 @addReview = (productId, currentUser) ->
+
+
 	$('#reviews').append("
 		<hr>
 		<b>Author Name:</b> #{currentUser.first_name} #{currentUser.last_name}<br>
 		#{$('#review_textarea').val()}
 	")
 
-	$('#review_textarea').val('')
-
 	$.ajax
-		method: "POST"
 		url: "/products/#{productId}/reviews"
+		method: "POST"
+		dataType: "json"
 		data:
 			review:
 				body: $("#review_textarea").val()
-				product_id: productId
 				user_id: currentUser.id
-		success:(data) ->
-        	alert data.review.id
+		done: ->
+			console.log data.review.id
+		fail: (error) ->
+			console.log error
+
+
+	$('#review_textarea').val('')
+
 
 	false

@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = @product.build(params[:review])
+    @review = @product.reviews.build(params[:review])
 
     respond_to do |format|
       if @review.save
