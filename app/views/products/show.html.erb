@@ -21,11 +21,5 @@
 	<% end %>
 	<%= link_to 'Back', products_path %>
 
-	<div id="reviews"></div>
+	<%= react_component "ReviewApp", { reviews: @product.reviews, users: User.all }, {prerender: true}  %>
 </div>
-
-<script>
-	$(function(){
-		window.mountReviews("/products/<%= @product.id %>/reviews.json");
-	});
-</script>

@@ -1,13 +1,8 @@
 @ReviewApp = React.createClass
 	getInitialState: ->
-      	reviews: null
-    loadFromServer: ->
-    	$.getJSON @props.url, (data) -> data
+      	reviews: @props.reviews
 	render: ->
 		<div>
-			<ReviewsList reviews={@state.reviews} />
+			<ReviewsList reviews={@state.reviews} users={@props.users} />
 			<ReviewForm />
 		</div>
-
-@mountReviews = (url) -> 
-	React.render(<ReviewApp url={url}/>, document.getElementById('reviews'))
