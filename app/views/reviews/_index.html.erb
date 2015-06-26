@@ -9,7 +9,7 @@
 
 <hr>
 
-<form id="review_form" onsubmit="addReview(<%= current_user.to_json  %>)">
+<form id="review_form" onsubmit="return addReview(<%= current_user.to_json %>)">
 	<textarea class="form-control" id="review_textarea"></textarea>
 	<button class="btn btn-primary">Submit</button>
 </form>

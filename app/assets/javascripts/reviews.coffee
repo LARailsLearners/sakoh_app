@@ -5,5 +5,5 @@
 	$('#reviews').append("
 		<hr>
 		<b>Author Name:</b> #{currentUser.first_name} #{currentUser.last_name}<br>
-		#{SelectText('#review_textarea')}
+		#{$('#review_textarea').val()}
 	")
