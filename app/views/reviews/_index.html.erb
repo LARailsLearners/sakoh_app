@@ -1,12 +1,15 @@
-<% @product.reviews.each do |review| %>
-	<hr>
-	<b>Author Name:</b> <%= review.user.first_name  %> <%= review.user.last_name  %> <br>
-	<%= review.body  %>
-<% end %>
+<div id="reviews">
+	<% @product.reviews.each do |review| %>
+		<hr>
+		<b>Author Name:</b> <%= review.user.first_name  %> <%= review.user.last_name %><br>
+		<%= review.body  %>
+	<% end %>
+</div>
+
 
 <hr>
 
-<form>
-	<textarea class="form-control"></textarea>
+<form id="review_form" onsubmit="addReview(<%= current_user.to_json  %>)">
+	<textarea class="form-control" id="review_textarea"></textarea>
 	<button class="btn btn-primary">Submit</button>
 </form>
