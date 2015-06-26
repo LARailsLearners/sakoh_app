@@ -7,3 +7,7 @@
 		<b>Author Name:</b> #{currentUser.first_name} #{currentUser.last_name}<br>
 		#{$('#review_textarea').val()}
 	")
+
+	$('#review_textarea').val('')
+
+	false
