@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_product, only: [:index]
+  before_action :set_product, only: [:index, :create]
   before_action :authenticate_user!, only: [:create, :update, :delete]
 
   def index
@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = @product.build(review_params)
+    @review = @product.build(params[:review])
 
     respond_to do |format|
       if @review.save
