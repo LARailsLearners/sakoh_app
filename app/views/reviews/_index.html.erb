@@ -1,7 +1,12 @@
-<hr>
-
 <% @product.reviews.each do |review| %>
-	<%= react_component "Review", {review: review, user: review.user }, prerender: true  %>
+	<hr>
+	<b>Author Name:</b> <%= review.user.first_name  %> <%= review.user.last_name  %> <br>
+	<%= review.body  %>
 <% end %>
 
-<%= react_component "ReviewForm", prerender: true %>
+<hr>
+
+<form>
+	<textarea class="form-control"></textarea>
+	<button class="btn btn-primary">Submit</button>
+</form>
