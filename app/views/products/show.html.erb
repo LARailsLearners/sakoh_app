@@ -20,5 +20,9 @@
 		<%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' } %> |
 	<% end %>
 	<%= link_to 'Back', products_path %>
-	<%= render "reviews/index", { product_id: @product.id }  %>
+	
+	<% if user_signed_in? %>
+		<%= render "reviews/index", { product_id: @product.id }  %>
+	<% end %>
+
 </div>
