@@ -18,6 +18,7 @@
 			review:
 				body: $("#review_textarea").val()
 				user_id: currentUser.id
+				product_id: productId
 		done: ->
 			console.log data.review.id
 		fail: (error) ->

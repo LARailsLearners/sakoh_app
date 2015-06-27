@@ -7,12 +7,12 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = @product.reviews.build(params[:review])
+    @review = @product.reviews.build(review_params)
 
     respond_to do |format|
       if @review.save
         #format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
+        format.json { render :index, status: :created, location: @review }
       else
         #format.html { render :new }
         format.json { render json: @review.errors, status: :unprocessable_entity }
@@ -24,5 +24,9 @@ class ReviewsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:product_id])
+    end
+
+    def review_params
+      params.require(:review).permit(:body, :user_id, :product_id)
     end
 end
