@@ -8,8 +8,9 @@
 
 
 <hr>
-
-<form id="review_form" onsubmit="return addReview(<%= @product.id %>, <%= current_user.to_json %>)">
-	<textarea class="form-control" id="review_textarea"></textarea>
-	<button class="btn btn-primary">Submit</button>
-</form>
+<% if user_signed_in? %>
+	<form id="review_form" onsubmit="return addReview(<%= @product.id %>, <%= current_user.to_json %>)">
+		<textarea class="form-control" id="review_textarea"></textarea>
+		<button class="btn btn-primary">Submit</button>
+	</form>
+<% end %>
