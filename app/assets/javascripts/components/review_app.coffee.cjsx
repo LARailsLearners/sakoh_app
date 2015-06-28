@@ -5,8 +5,11 @@
   	)
 
 @ReviewApp = React.createClass
-  	render: ->
+	getInitialState: ->
+		reviews: @props.reviews
+
+	render: ->
   		<div>
-  			<ReviewsList reviews={@props.reviews} />
-    		<ReviewForm /> 
+  			<ReviewsList reviews={@state.reviews} />
+   			<ReviewForm /> 
   		</div>
