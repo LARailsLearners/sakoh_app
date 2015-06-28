@@ -1,20 +1,21 @@
 class ReviewsController < ApplicationController
-  before_action :set_product, only: [:index, :create]
+  before_action :set_reviews, only: [:index, :show, :create]
   before_action :authenticate_user!, only: [:create, :update, :delete]
 
   def index
-    @reviews = @product.reviews
+  end
+
+  def show
+    @review = @reviews.where(id: params[:id]).first
   end
 
   def create
-    @review = @product.reviews.build(review_params)
+    @review = @reviews.build(review_params)
 
     respond_to do |format|
       if @review.save
-        #format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
+        format.json { render :index }
       else
-        #format.html { render :new }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
@@ -22,8 +23,8 @@ class ReviewsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:product_id])
+    def set_reviews
+      @reviews = Product.find(params[:product_id]).reviews
     end
 
     def review_params
