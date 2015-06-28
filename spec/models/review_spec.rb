@@ -12,16 +12,52 @@ RSpec.describe Review, type: :model do
     review
   end
 
-  it "should have body" do
+  it "should have a body" do
   	review.body = ""
   	review.save
   	expect(review).to_not be_valid
+  end
+
+  it "should have a rating" do
+    review.rating = ""
+    review.save
+    expect(review).to_not be_valid
+  end
+
+  it "shouldn't have a rating less than 1" do
+    review.rating = 0
+    review.save
+    expect(review).to_not be_valid
+  end
+
+  it "shouldn't have a rating more than 5" do
+    review.rating = 6
+    review.save
+    expect(review).to_not be_valid
   end
 
   it "should have an author" do
     review.user_id = ""
     review.save
     expect(review).to_not be_valid
+  end
+
+  it "should have a unique author" do
+    review = Review.create(
+      user_id: user.id, 
+      body: "Really Good product", 
+      rating: 5, 
+      product_id: product.id 
+    )
+
+    another_review = Review.create(
+      user_id: user.id, 
+      body: "Really Good product", 
+      rating: 5, 
+      product_id: product.id 
+    )
+
+    expect(another_review).to_not be_valid
   end
 
   it "should belong to a product" do
