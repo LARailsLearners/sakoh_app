@@ -20,6 +20,8 @@
 		<%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' } %> |
 	<% end %>
 	<%= link_to 'Back', products_path %>
+	
+	<hr/>
 
 	<div id="reviews"></div>
 
@@ -30,7 +32,7 @@
 				method: "GET",
 				dataType: "json",
 				success: function(data){
-				  loadReviews(data)
+				  window.loadReviews(data)
 				},
 				fail: function(error){
 					console.log(error)
