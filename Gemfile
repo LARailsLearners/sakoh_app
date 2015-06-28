@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 
-# Ruby version development: ruby 2.1.0p0 
+# Ruby version development: ruby 2.1.0p0
 
 group :production do
   gem 'rails_12factor'
@@ -51,6 +51,10 @@ gem 'redcarpet'
 gem "paperclip", "~> 4.2"
 
 gem "pundit"
+
+gem 'react-rails', '~> 1.0'
+
+gem 'sprockets-coffee-react'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

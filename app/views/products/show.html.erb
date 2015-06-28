@@ -21,6 +21,10 @@
 	<% end %>
 	<%= link_to 'Back', products_path %>
 
+	<div id="reviews"></div>
+
+  
+
 	<script type="text/javascript" charset="utf-8">
 		$(function () {
 			$.ajax({
@@ -28,7 +32,7 @@
 				method: "GET",
 				dataType: "json",
 				success: function(data){
-				  alert(data[0].user.first_name)
+				  loadReviews(data)
 				},
 				fail: function(error){
 					console.log(error)
