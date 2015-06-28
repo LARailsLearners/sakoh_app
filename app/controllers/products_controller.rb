@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    # @reviews = render( "reviews/index.json.jbuilder", { product_id: @product.id }).to_json
   end
 
   # GET /products/new
