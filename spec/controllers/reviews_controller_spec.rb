@@ -7,7 +7,7 @@ RSpec.describe ReviewsController, type: :controller do
 
   let(:product) { user.products.create(attributes_for(:product)) }
 
-  let(:review_attrs) { { body: "Hello", user_id: user.id } }
+  let(:review_attrs) { { body: "Great Product", user_id: user.id, rating: 5 } }
 
   let(:review) { product.reviews.create(review_attrs) }
 
