@@ -8,24 +8,22 @@
 		user_id: currentUser.id
 		product_id: productId
 
-	$('#reviews').append("
-		<hr>
-		<b>Author Name:</b> #{currentUser.first_name} #{currentUser.last_name}<br>
-		#{review.body}
-	")
-
 	$.ajax
 		url: "/products/#{productId}/reviews"
 		method: "POST"
 		dataType: "json"
 		data: { review: review }
-		done: ->
-			console.log data.review.id
+		success: (data) ->
+			updateReviewList(review, currentUser)
+			$('#review_textarea').val('')
 		fail: (error) ->
 			console.log error
 
-
-	$('#review_textarea').val('')
-
-
 	false
+
+updateReviewList = (review, author) ->
+	$('#reviews').append("
+		<hr>
+		<b>Author Name:</b> #{author.first_name} #{author.last_name}<br>
+		#{review.body}
+	")
