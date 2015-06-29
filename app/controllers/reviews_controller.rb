@@ -2,9 +2,11 @@ class ReviewsController < ApplicationController
   before_action :set_reviews, only: [:index, :show, :create]
   before_action :authenticate_user!, only: [:create, :update, :delete]
 
+  # GET /products/1/reviews.json
   def index
   end
 
+  # GET /products/1/reviews/1.json
   def show
     @review = @reviews.where(id: params[:id]).first
   end
