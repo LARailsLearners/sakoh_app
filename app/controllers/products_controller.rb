@@ -81,6 +81,7 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:id])
     end
 
+    # Determines which users can perform which actions
     def set_policy
       @policy = ApplicationPolicy.new(current_user, @product)
     end

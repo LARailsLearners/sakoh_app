@@ -126,6 +126,7 @@ RSpec.describe ProductsController, type: :controller do
 
 
     # it "not update if user is not the author of the product" do
+    #   product = user.products.create(attributes_for(:product))
     #   sign_in different_user
     #   product.name = "Playstation 5"
     #   put :update, {:id => product.to_param, :product => product_attrs}

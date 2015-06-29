@@ -45,4 +45,16 @@ RSpec.describe ReviewsController, type: :controller do
 
   end
 
+  describe "PUT #update" do
+
+    before(:each) { sign_in user }
+
+    it "updates the requested review" do
+      review_attrs['rating'] = 3
+      put :update, {id: review.id, product_id: product.id, :review => review_attrs, format: :json }
+      expect(review.rating).to eq(3)
+    end
+
+  end
+
 end
