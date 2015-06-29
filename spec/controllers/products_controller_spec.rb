@@ -159,6 +159,22 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "DELETE #destroy" do
 
+    it "fails to destroy the requested product if the user is not signed in" do
+      sign_in nil
+      product = user.products.create! product_attrs
+      expect {
+        delete :destroy, {:id => product.to_param}
+      }.to change(Product, :count).by(0)
+    end
+
+    it "fails to destroy the requested product if it doesn't belong to user" do
+      sign_in different_user
+      product = user.products.create! product_attrs
+      expect {
+        delete :destroy, {:id => product.to_param}
+      }.to change(Product, :count).by(0)
+    end
+
     it "destroys the requested product" do
       sign_in user
       product = user.products.create! product_attrs

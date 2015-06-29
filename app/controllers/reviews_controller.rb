@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
-  before_action :set_reviews, only: [:index, :show, :update, :create, :set_policy ]
-  before_action :authenticate_user!, only: [:create, :update, :delete]
+  before_action :set_reviews, only: [:index, :show, :update, :create, :set_policy, :destroy ]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_policy, only: [:update, :destroy]
 
   # GET /products/1/reviews.json
@@ -31,6 +31,19 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.update(review_params) && @policy.update?
         # format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.json { render :index }
+      else
+        # format.html { render :edit }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      if @policy.update?
+        # format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        @review.destroy
         format.json { render :index }
       else
         # format.html { render :edit }
