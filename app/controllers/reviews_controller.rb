@@ -1,6 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_reviews, only: [:index, :show, :create]
-  before_action :set_review, only: [:show, :update]
+  before_action :set_reviews, only: [:index, :show, :update, :create, :set_policy ]
   before_action :authenticate_user!, only: [:create, :update, :delete]
   before_action :set_policy, only: [:update, :destroy]
 
@@ -44,10 +43,7 @@ class ReviewsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_reviews
       @reviews = Product.find(params[:product_id]).reviews
-    end
-
-    def set_review
-      @review = Product.find(params[:product_id]).reviews.where(id: params[:id]).first
+      @review = @reviews.where(id: params[:id]).first
     end
 
     def review_params
@@ -56,9 +52,6 @@ class ReviewsController < ApplicationController
 
     # Determines which users can perform which actions
     def set_policy
-      @policy = ApplicationPolicy.new(
-        current_user, 
-        Product.find(params[:product_id]).reviews.where(id: params[:id]).first
-      )
+      @policy = ApplicationPolicy.new(current_user, @review)
     end
 end
