@@ -35,7 +35,7 @@ class ApplicationPolicy
   end
 
   def record_belongs_to_user?
-    @user == @record.user
+    @user.id == @record.user_id
   end
 
   def scope
