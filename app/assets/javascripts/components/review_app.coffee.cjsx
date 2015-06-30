@@ -11,5 +11,4 @@
 	render: ->
   		<div>
   			<ReviewsList reviews={@state.reviews} />
-   			<ReviewForm /> 
   		</div>
