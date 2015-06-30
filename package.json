@@ -1,14 +1,41 @@
 {
   "name": "user-group-app",
-  "dependencies" : {
+  "dependencies": {
     "browserify": "~> 6.3",
     "browserify-incremental": "^1.4.0",
+    "cjsx-loader": "^2.0.1",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.9.3",
     "coffeeify": "~> 0.6",
-    "immutable": "*"
-
+    "expose-loader": "^0.7.0",
+    "immutable": "*",
+    "j-toker": "0.0.6",
+    "jquery": "^2.1.4",
+    "node-libs-browser": "^0.5.2",
+    "path": "^0.4.10",
+    "react": "^0.13.3",
+    "webpack": "^1.10.0"
   },
   "license": "MIT",
   "engines": {
     "node": ">= 0.10"
-  }
+  },
+  "description": "README ======",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sakoh/user_group_app.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/sakoh/user_group_app/issues"
+  },
+  "homepage": "https://github.com/sakoh/user_group_app"
 }
