@@ -4,7 +4,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.float :price
-      t.references :product, index: true
+      t.references :user, index: true
 
       t.timestamps null: false
     end

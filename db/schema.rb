@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 20150628223933) do
     t.string   "name"
     t.text     "description"
     t.float    "price"
+    t.integer  "user_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.integer  "user_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -60,5 +60,4 @@ ActiveRecord::Schema.define(version: 20150628223933) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "products", "users"
 end
