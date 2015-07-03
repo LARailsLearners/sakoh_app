@@ -1,5 +1,5 @@
 React = require 'react'
-
+$ = require 'jquery'
 
 Review = React.createClass
 	getInitialState: ->
@@ -15,8 +15,16 @@ Review = React.createClass
 		review = @state.review
 		review.body = @state.body
 		review.rating = @state.rating
-		@setState(review: review)
-		@setState(isEditing: false)
+		$.ajax
+  			url: "/products/#{@state.review.product_id}/reviews/#{@state.review.id}.json"
+  			method: 'PUT'
+  			dataType: 'json'
+  			data: {review: review}
+  			success: (data) ->
+    			@setState(review: review)
+				@setState(isEditing: false)
+  			fail: (error) ->
+    			console.log error
 	handleTextChange: (e) ->
 		@setState(body: e.target.value)
 	handleRatingChange: (e) ->
