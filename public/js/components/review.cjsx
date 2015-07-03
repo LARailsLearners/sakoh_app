@@ -21,8 +21,7 @@ Review = React.createClass
   			dataType: 'json'
   			data: {review: review}
   			success: (data) ->
-    			@setState(review: review)
-				@setState(isEditing: false)
+    			@setState(review: review); @setState(isEditing: false)
   			fail: (error) ->
     			console.log error
 	handleTextChange: (e) ->
