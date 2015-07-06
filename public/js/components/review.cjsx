@@ -12,9 +12,12 @@ Review = React.createClass
 		@setState(isEditing: true)
 	handleSubmit: (e) ->
 		e.preventDefault()
-		review = @state.review
-		review.body = @state.body
-		review.rating = @state.rating
+		review = 
+			id: @state.review.id
+			body: @state.review.body
+			rating: @state.review.rating
+			product_id: @state.review.product_id
+			user_id: @state.review.user_id
 		$.ajax
   			url: "/products/#{@state.review.product_id}/reviews/#{@state.review.id}.json"
   			method: 'PUT'

@@ -27,10 +27,18 @@
 
 	<script type="text/javascript" charset="utf-8">
 		$(function () {
+			
+			$.ajaxSetup({
+			  headers: {
+			    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+			  }
+			});
+
 			$.ajax({
 				url: "/products/<%= @product.id %>/reviews.json",
 				method: "GET",
 				dataType: "json",
+
 				success: function(data){
 				  window.loadReviews(data)
 				},
