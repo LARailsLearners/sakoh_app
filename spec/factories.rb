@@ -6,6 +6,16 @@ FactoryGirl.define do
   	email 'jwest@hotmail.com'
   	password '12345678'
   	password_confirmation '12345678'
+    admin false
+  end
+
+  factory :admin_user do
+    first_name 'James'
+    last_name 'West'
+    email 'jwest@hotmail.com'
+    password '12345678'
+    password_confirmation '12345678'
+    admin true
   end
 
   factory :product do

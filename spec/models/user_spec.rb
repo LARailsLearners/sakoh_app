@@ -10,6 +10,12 @@ RSpec.describe User, type: :model do
     expect(user).to_not be_valid
   end
 
+  it "should specify whether or not user is admin" do
+    user.admin = nil
+    user.save
+    expect(user).to be_valid
+  end
+
   it "should not have too short of a first name" do
     user.first_name = 'a' 
     user.save
