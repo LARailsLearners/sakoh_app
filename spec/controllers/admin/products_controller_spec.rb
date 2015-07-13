@@ -21,13 +21,17 @@ require 'support/controller_helpers'
 
 RSpec.describe Admin::ProductsController, type: :controller do
 
-  let(:user) { create(:user) }
+  let(:regular_user) { create(:user) }
 
-  let(:different_user) { User.create(first_name: "John", last_name: "Smith", email: "jsmith@gmail.com") }
+  let(:admin_user) do 
+    admin_user = build(:user)
+    admin_user.admin = true
+    admin_user.save
+  end
 
   let(:product_attrs) { attributes_for(:product) }
 
-  let(:product) { user.products.create(attributes_for(:product)) }
+  let(:product) { admin_user.products.create(attributes_for(:product)) }
 
   let(:valid_attributes) { attributes_for(:product) }
 
@@ -35,8 +39,20 @@ RSpec.describe Admin::ProductsController, type: :controller do
 
   describe "GET #index" do
 
-    it "assigns the requested product as @products" do
+    it "blocks unathenticated users" do
       sign_in nil
+      get :index, {}
+      expect(response).to_not be_success
+    end
+
+    it "blocks unadmin users" do
+      sign_in regular_user
+      get :index, {}
+      expect(response).to_not be_success
+    end
+
+    it "assigns the requested product as @products" do
+      sign_in admin_user
       get :index, {}
       expect(response).to be_success
       expect(assigns(:products)).to eq([product])
@@ -46,150 +62,163 @@ RSpec.describe Admin::ProductsController, type: :controller do
 
   describe "GET #show" do
 
+    it "blocks unathenticated users" do
+      sign_in nil
+      get :show, {:id => product.to_param}
+      expect(response).to_not be_success
+    end
+
+    it "blocks unadmin users" do
+      sign_in regular_user
+      get :show, {:id => product.to_param}
+      expect(response).to_not be_success
+    end
+
     it "assigns the requested product as @product" do
+      sign_in admin_user
       get :show, {:id => product.to_param}
       expect(assigns(:product)).to eq(product)
     end
 
   end
 
-  describe "GET #new" do
+  # describe "GET #new" do
 
-    it "tries to assign a new product as @product without authorization" do
-      sign_in nil
-      get :new, {}
-      expect(response).to redirect_to(new_user_session_path)
-    end
+  #   it "tries to assign a new product as @product without authorization" do
+  #     sign_in nil
+  #     get :new, {}
+  #     expect(response).to redirect_to(new_user_session_path)
+  #   end
 
-    it "assigns a new product as @product with authorization" do
-      sign_in user
-      get :new, {}
-      expect(assigns(:product)).to be_a_new(Product)
-    end
-  end
+  #   it "assigns a new product as @product with authorization" do
+  #     sign_in user
+  #     get :new, {}
+  #     expect(assigns(:product)).to be_a_new(Product)
+  #   end
+  # end
 
-  describe "GET #edit" do
+  # describe "GET #edit" do
 
-    it "tries to get the requested product edit page without logging in" do
-      sign_in nil
-      get :edit, {:id => product.to_param}
-      expect(response).to redirect_to(new_user_session_path)
-    end
+  #   it "tries to get the requested product edit page without logging in" do
+  #     sign_in nil
+  #     get :edit, {:id => product.to_param}
+  #     expect(response).to redirect_to(new_user_session_path)
+  #   end
 
-    it "tries to get the requested product edit page as a different user" do
-      sign_in different_user
-      get :edit, {:id => product.to_param}
-      expect(response).to redirect_to(products_path)
-    end
+  #   it "tries to get the requested product edit page as a different user" do
+  #     sign_in different_user
+  #     get :edit, {:id => product.to_param}
+  #     expect(response).to redirect_to(products_path)
+  #   end
 
-    it "gets the product page as the product user" do
-      sign_in user
-      get :edit, {:id => product.to_param}
-      expect(assigns(:product)).to( eq(product) )
-    end
-  end
+  #   it "gets the product page as the product user" do
+  #     sign_in user
+  #     get :edit, {:id => product.to_param}
+  #     expect(assigns(:product)).to( eq(product) )
+  #   end
+  # end
 
-  describe "POST #create" do
-    context "with valid params" do
+  # describe "POST #create" do
+  #   context "with valid params" do
 
-      it "should fail to add a new product without authorization" do
-        sign_in nil
-        expect {
-          post :create, {:product => product_attrs }
-        }.to change(Product, :count).by(0)
-      end
+  #     it "should fail to add a new product without authorization" do
+  #       sign_in nil
+  #       expect {
+  #         post :create, {:product => product_attrs }
+  #       }.to change(Product, :count).by(0)
+  #     end
 
-      it "creates a new Product with authorization" do
-        sign_in user
-        expect {
-          post :create, {:product => product_attrs }
-        }.to change(Product, :count).by(1)
-      end
+  #     it "creates a new Product with authorization" do
+  #       sign_in user
+  #       expect {
+  #         post :create, {:product => product_attrs }
+  #       }.to change(Product, :count).by(1)
+  #     end
 
-      it "assigns a newly created product as @product" do
-        sign_in user
-        post :create, {:product => product_attrs}
-        expect(assigns(:product)).to be_a(Product)
-        expect(assigns(:product)).to be_persisted
-      end
+  #     it "assigns a newly created product as @product" do
+  #       sign_in user
+  #       post :create, {:product => product_attrs}
+  #       expect(assigns(:product)).to be_a(Product)
+  #       expect(assigns(:product)).to be_persisted
+  #     end
 
-      it "redirects to the created product" do
-        sign_in user
-        post :create, {:product => valid_attributes}
-        expect(response).to redirect_to(Product.last)
-      end
-    end
+  #     it "redirects to the created product" do
+  #       sign_in user
+  #       post :create, {:product => valid_attributes}
+  #       expect(response).to redirect_to(Product.last)
+  #     end
+  #   end
 
-  end
+  # end
 
-  describe "PUT #update" do
+  # describe "PUT #update" do
 
 
-    # it "not update if user is not the author of the product" do
-    #   product = user.products.create(attributes_for(:product))
-    #   sign_in different_user
-    #   product.name = "Playstation 5"
-    #   put :update, {:id => product.to_param, :product => product_attrs}
-    #   expect(product.name).to_not eq("Playstation 5")
-    # end
+  #   # it "not update if user is not the author of the product" do
+  #   #   product = user.products.create(attributes_for(:product))
+  #   #   sign_in different_user
+  #   #   product.name = "Playstation 5"
+  #   #   put :update, {:id => product.to_param, :product => product_attrs}
+  #   #   expect(product.name).to_not eq("Playstation 5")
+  #   # end
 
-    context "when user is signed in" do
+  #   context "when user is signed in" do
 
-      before(:each) { sign_in user }
+  #     before(:each) { sign_in user }
 
-      it "updates the requested product" do
-        product.name = "Playstation 5"
-        put :update, {:id => product.to_param, :product => product_attrs}
-        expect(product.name).to eq("Playstation 5")
-      end
+  #     it "updates the requested product" do
+  #       product.name = "Playstation 5"
+  #       put :update, {:id => product.to_param, :product => product_attrs}
+  #       expect(product.name).to eq("Playstation 5")
+  #     end
 
-      it "assigns the requested product as @product" do
-        put :update, {:id => product.to_param, :product => product_attrs}
-        expect(assigns(:product)).to eq(product)
-      end
+  #     it "assigns the requested product as @product" do
+  #       put :update, {:id => product.to_param, :product => product_attrs}
+  #       expect(assigns(:product)).to eq(product)
+  #     end
 
-      it "redirects to the product" do
-        put :update, {:id => product.to_param, :product => product_attrs}
-        expect(response).to redirect_to(product)
-      end
+  #     it "redirects to the product" do
+  #       put :update, {:id => product.to_param, :product => product_attrs}
+  #       expect(response).to redirect_to(product)
+  #     end
 
-    end
+  #   end
 
-  end
+  # end
 
-  describe "DELETE #destroy" do
+  # describe "DELETE #destroy" do
 
-    it "fails to destroy the requested product if the user is not signed in" do
-      sign_in nil
-      product = user.products.create! product_attrs
-      expect {
-        delete :destroy, {:id => product.to_param}
-      }.to change(Product, :count).by(0)
-    end
+  #   it "fails to destroy the requested product if the user is not signed in" do
+  #     sign_in nil
+  #     product = user.products.create! product_attrs
+  #     expect {
+  #       delete :destroy, {:id => product.to_param}
+  #     }.to change(Product, :count).by(0)
+  #   end
 
-    it "fails to destroy the requested product if it doesn't belong to user" do
-      sign_in different_user
-      product = user.products.create! product_attrs
-      expect {
-        delete :destroy, {:id => product.to_param}
-      }.to change(Product, :count).by(0)
-    end
+  #   it "fails to destroy the requested product if it doesn't belong to user" do
+  #     sign_in different_user
+  #     product = user.products.create! product_attrs
+  #     expect {
+  #       delete :destroy, {:id => product.to_param}
+  #     }.to change(Product, :count).by(0)
+  #   end
 
-    it "destroys the requested product" do
-      sign_in user
-      product = user.products.create! product_attrs
-      expect {
-        delete :destroy, {:id => product.to_param}
-      }.to change(Product, :count).by(-1)
-    end
+  #   it "destroys the requested product" do
+  #     sign_in user
+  #     product = user.products.create! product_attrs
+  #     expect {
+  #       delete :destroy, {:id => product.to_param}
+  #     }.to change(Product, :count).by(-1)
+  #   end
 
-    it "redirects to the products list" do
-      sign_in user
-      product = user.products.create! valid_attributes
-      delete :destroy, {:id => product.to_param}
-      expect(response).to redirect_to(products_url)
-    end
+  #   it "redirects to the products list" do
+  #     sign_in user
+  #     product = user.products.create! valid_attributes
+  #     delete :destroy, {:id => product.to_param}
+  #     expect(response).to redirect_to(products_url)
+  #   end
 
-  end
+  # end
 
 end

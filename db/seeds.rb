@@ -12,7 +12,8 @@ User.create([
   	last_name: "Hartounian",
   	email: "sakohartounian@yahoo.com",
   	password: "password",
-  	password_confirmation: "password"
+  	password_confirmation: "password",
+    admin: true
   },
   {
   	first_name: "James",
