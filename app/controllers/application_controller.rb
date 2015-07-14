@@ -5,16 +5,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
    
-  protected
-
-  	def ensure_admin!
-  	  unless current_user.try(:admin?)
-  	    sign_out current_user
-	
-  	    redirect_to root_path
-	
-  	    return false
-  	  end
-  	end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.root_path, :alert => exception.message
+  end
 
 end
