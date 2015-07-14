@@ -3,10 +3,12 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_policy, only: [:update, :destroy]
 
+  # GET /products/1/reviews
   # GET /products/1/reviews.json
   def index
   end
 
+  # GET /products/1/reviews/1
   # GET /products/1/reviews/1.json
   def show
   end
