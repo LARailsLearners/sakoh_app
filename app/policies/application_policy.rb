@@ -23,19 +23,19 @@ class ApplicationPolicy
   end
 
   def update?
-    record_belongs_to_user?
+    user_has_authorization?
   end
 
   def edit?
-    record_belongs_to_user?
+    user_has_authorization?
   end
 
   def destroy?
-    record_belongs_to_user?
+    user_has_authorization?
   end
 
-  def record_belongs_to_user?
-    @user.id == @record.user_id
+  def user_has_authorization?
+    @user.id == @record.user_id || @user.admin
   end
 
   def scope
