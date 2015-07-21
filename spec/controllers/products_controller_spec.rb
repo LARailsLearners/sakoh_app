@@ -37,7 +37,7 @@ RSpec.describe ProductsController, type: :controller do
 
     it "assigns the requested product as @products" do
       sign_in nil
-      get :index, {}
+      get :index, { search: "Nintendo" }
       expect(response).to be_success
       expect(assigns(:products)).to eq([product])
     end

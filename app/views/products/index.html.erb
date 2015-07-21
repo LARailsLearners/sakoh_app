@@ -1,3 +1,8 @@
+<%= form_tag products_path, :method => 'get'  do %>
+   <%= text_field_tag :search, params[:search]%>
+   <%= submit_tag "Search", { name: nil, class: "btn btn-primary search" }  %>
+<% end %>
+
 <div class="row">
   <% @products.each do |product| %>
     <div class="col-md-4 container center bottom-margin">
