@@ -1,7 +1,11 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :set_policy, only: [:show, :edit, :update, :destroy]
+  authorize_resource only: [:edit, :update, :destroy]
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.products_path, :alert => exception.message
+  end
   
   # GET /products
   # GET /products.json
@@ -21,11 +25,6 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-    unless @policy.edit?
-      respond_to do |format|
-        format.html { redirect_to products_url, notice: 'You can only edit your own products' }
-      end
-    end
   end
 
   # POST /products
@@ -47,8 +46,9 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+
     respond_to do |format|
-      if @product.update(product_params) && @policy.update?
+      if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -61,29 +61,17 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    if @policy.destroy?
       @product.destroy
       respond_to do |format|
         format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
         format.json { head :no_content }
       end
-    else
-      respond_to do |format|
-        format.html { redirect_to products_url, notice: 'You can only destroy your own products.' }
-        format.json { head :no_content }
-      end
-    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
-    end
-
-    # Determines which users can perform which actions
-    def set_policy
-      @policy = ApplicationPolicy.new(current_user, @product)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

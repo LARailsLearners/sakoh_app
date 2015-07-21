@@ -50,8 +50,6 @@ gem 'redcarpet'
 
 gem "paperclip", "~> 4.2"
 
-gem "pundit"
-
 gem "font-awesome-rails"
 
 gem "rails_admin"

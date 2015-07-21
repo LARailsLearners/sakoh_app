@@ -150,7 +150,7 @@ RSpec.describe ProductsController, type: :controller do
 
       it "redirects to the product" do
         put :update, {:id => product.to_param, :product => product_attrs}
-        expect(response).to redirect_to(product)
+        expect(response).to redirect_to(product_path)
       end
 
     end
