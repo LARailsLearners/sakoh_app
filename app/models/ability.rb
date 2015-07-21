@@ -7,9 +7,15 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :manage, Product do |p|
-  		  user.id == p.user_id if user.try(:id)
-	    end
+      if user.try(:id)
+        can :manage, Product do |p|
+          user.id == p.user_id 
+        end
+        
+        can :manage, Review do |r|
+          user.id == r.user_id 
+        end
+      end
     end
   end
 end

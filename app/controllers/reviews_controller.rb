@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_reviews, only: [:index, :show, :update, :create, :set_policy, :destroy ]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
-  before_action :set_policy, only: [:update, :destroy]
+  authorize_resource only: [:update, :destroy]
 
   # GET /products/1/reviews
   # GET /products/1/reviews.json
@@ -31,7 +31,7 @@ class ReviewsController < ApplicationController
   # PATCH/PUT /reviews/1.json
   def update
     respond_to do |format|
-      if @review.update(review_params) && @policy.update?
+      if @review.update(review_params)
         # format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :index }
       else
@@ -43,14 +43,9 @@ class ReviewsController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if @policy.update?
-        # format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        @review.destroy
-        format.json { render :index }
-      else
-        # format.html { render :edit }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
+      # format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+      @review.destroy
+      format.json { render :index }
     end
   end
 
@@ -65,8 +60,4 @@ class ReviewsController < ApplicationController
       params.require(:review).permit(:body, :rating, :user_id, :product_id)
     end
 
-    # Determines which users can perform which actions
-    def set_policy
-      @policy = ApplicationPolicy.new(current_user, @review)
-    end
 end
